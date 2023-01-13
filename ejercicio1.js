@@ -13,6 +13,9 @@ const contarChar = (dato) => {
         return objToString.length;
     }
 };
+// Esta es la forma fàcil
+const contarC = (dato) => dato.length
+console.log(contarC("holaxddddd"))
 
 const persona = {
     name: "Alan",
