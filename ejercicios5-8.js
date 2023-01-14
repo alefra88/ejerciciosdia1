@@ -5,21 +5,27 @@
 //         ? console.warn("debes ingresar texto")
 //         : date.split("").reverse().join("");
 
-// console.log(reverseWord("Hola Mundo"));
+// console.log(reverseWord("Encontraré dinero en la tarde porque tengo buena suerta"));
 
 // 6) Programa una función para contar el número de veces que se repite una palabra en un texto largo, pe. miFuncion("hola mundo adios mundo", "mundo") devolverá 2.
 
-const contarPalabras = (date = "") => {
-    if (!date) {
-        arr = date.split(" ");
-        arr.flat();
-        arr.filter((e, i, a) => a.indexOf(e) !== i);
-        arr.map((e, i, a) => ({
-            [e]: a.filter((str) => str === e).length + 1,
-        }));
+const contarPalabras = (date = "", text = "") => {
+    if (!date) return console.warn("Debes ingresar texto");
+
+    if (!text) return console.warn("no ingresaste la palabra");
+
+    let i = 0,
+        contador = 0;
+    while(i !== -1){
+      i = date.indexOf(text,i);
+      if(i!==-1){
+       i++;
+       contador++;
+      }
     }
+    return console.info(`La palabra ${text} se repite ${contador}veces`)
 };
-console.log(contarPalabras("asdasd asdasd asdasd"));
+contarPalabras("asdsdsadd21edasdas 222","2");
 
 // 7) Programa una función que valide si una palabra o frase dada, es un palíndromo (que se lee igual en un sentido que en otro), pe. mifuncion("Salas") devolverá true.
 
