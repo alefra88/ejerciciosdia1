@@ -11,6 +11,13 @@ const conVocCon = (text = undefined) => {
 };
 conVocCon("ASDAS");
 // 19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero.
+const valNom = (nom) => {
+    const nomReg = /^[a-zA-Z\s']+$/;
+    const isValid = nomReg.test(nom);
+    return console.info(isValid);
+};
+
+valNom("Efra 1212");
 // 20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero.
 const valEma = (email) => {
     const emaReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
