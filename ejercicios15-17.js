@@ -33,10 +33,13 @@ const numDesc = (num = undefined, desc = undefined) => {
 };
 numDesc(100, 100);
 // 17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020).
-const YeaTra = (date) => {
+const YeaTra = (date = undefined) => {
+    if (date === undefined) return console.warn("Ingresa la fecha, por favor");
+    if (!date instanceof Date)
+        return console.warn("Debes ingresar una fecha valida");
     let curYea = new Date().getFullYear();
-    let givYea = date.getFullYear()
-    return console.info(` han pasado ${curYea - givYea} años`)
+    let givYea = date.getFullYear();
+    return console.info(` han pasado ${curYea - givYea} años`);
 };
 
-YeaTra(new Date(0666,6,06))
+YeaTra(new Date(1988, 0, 12));
