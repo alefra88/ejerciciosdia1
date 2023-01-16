@@ -13,16 +13,17 @@ const eliDup = (arr) => {
     let noDup = arr.filter(function (elem, index, self) {
         return index === self.indexOf(elem);
     });
-    console.info(noDup);
+    let noDup2 = [...new Set(arr)]; //Esta es la forma optima
+    console.info(noDup2);
 };
 eliDup(arr2);
 // 26) Programa una función que dado un arreglo de números obtenga el promedio, pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5.
-const arr3 = [2,2,2,3,3,3,4,4,4,5,5,5];
+const arr3 = [2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5];
 const arrAvg = (arr) => {
     let sum = arr.reduce(function (a, b) {
         return a + b;
     }, 0);
     let avg = sum / arr.length;
-    return console.info(avg)
+    return console.info(avg);
 };
-arrAvg(arr3)
+arrAvg(arr3);
