@@ -1,7 +1,9 @@
 // 18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, pe. miFuncion("Hola Mundo") devuelva Vocales: 4, Consonantes: 5.
 const conVocCon = (text = undefined) => {
-    if (text === undefined) return console.warn("ingresa una cadena de texto");
-    if (typeof text === "number")
+    let textSpa= text.trim()
+    console.log(textSpa)
+    if (!textSpa) return console.warn("ingresa una cadena de texto");
+    if (typeof textSpa === "number")
         return console.warn("el texto no puede ser numero");
     const conVoc = text.match(/[aeiou]/gi).length;
     const conCon = text.match(/[bcdfghjklmnpqrstvwxyz]/gi).length;
@@ -9,7 +11,7 @@ const conVocCon = (text = undefined) => {
         `el numero de vocales es: ${conVoc} el numero de consonantes es: ${conCon}`
     );
 };
-conVocCon("ASDAS");
+conVocCon("              as  ");
 // 19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero.
 const valNom = (nom="") => {
     if (!nom) return console.warn("Ingresa un nombre");
