@@ -23,5 +23,4 @@ const arrParImp = (arr)=>{
   }
   return console.info({par,impar})
 }
-
 arrParImp(arr)
