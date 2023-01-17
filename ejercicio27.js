@@ -89,10 +89,18 @@ class Pelicula {
             calificacion: this.calificacion,
         };
     }
+    validateChain(prop, valor) {
+        if (!valor) throw new Error(`${prop} y ${valor} estan vacios`);
+        if (typeof valor !== "string")
+            throw new Error(
+                `${prop} el valor ingresado ${valor}, no es una cadena de texto`
+            );
+        return true;
+    }
     validateId(id) {
         //validamos que introduscan el id
-        if (!id) {
-            throw new Error("id is required");
+        if (!this.validateChain("IMDB id", id)) {
+            throw new Error("Debes llenar los campos de id y su contenido");
         }
         //validamos que el id conrresponda a las caracteristicas pedidas
         const idRegExp = /^[a-zA-Z]{2}[0-9]{7}$/;
@@ -102,12 +110,15 @@ class Pelicula {
     }
     validateTitulo(titulo) {
         //validamos que introduscan el nombre
-        if (!titulo) {
-            throw new Error("El titulo es requerido");
+        if (!this.validateChain("nombre del titulo", titulo)) {
+            throw new Error("Debes ingresar el titulo y el nombre");
         }
         //validamos que no supere los 100 caracteres
         if (titulo.length > 100) {
             throw new Error("El titulo no debe exceder los 100 caracteres");
+        }
+        if(!/\S/.test(titulo)){
+          console.log("El titulo no debe ser solo espacios en blanco");
         }
     }
     validateDirector(director) {
@@ -176,3 +187,7 @@ class Pelicula {
         }
     }
 }
+
+const pelicula = new Pelicula({ id: "tt0019130", titulo: "   " });
+
+// id: tt0019130
