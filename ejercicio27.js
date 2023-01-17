@@ -95,6 +95,9 @@ class Pelicula {
             throw new Error(
                 `${prop} el valor ingresado ${valor}, no es una cadena de texto`
             );
+        if (!/\S/.test(valor)) {
+            throw new Error(`${prop} no debe ser solo espacios en blanco`);
+        }
         return true;
     }
     validateId(id) {
@@ -116,9 +119,6 @@ class Pelicula {
         //validamos que no supere los 100 caracteres
         if (titulo.length > 100) {
             throw new Error("El titulo no debe exceder los 100 caracteres");
-        }
-        if(!/\S/.test(titulo)){
-          console.log("El titulo no debe ser solo espacios en blanco");
         }
     }
     validateDirector(director) {
@@ -147,6 +147,9 @@ class Pelicula {
         if (!Number.isInteger(estreno)) {
             throw new Error("Estreno debe ser numero");
         }
+        if (!/\S/.test(estreno)) {
+          throw new Error(`${prop} no debe ser solo espacios en blanco`);
+      }
         //validamos que el numero no supere los 4 digitos
         if (estreno.toString().length !== 4) {
             throw new Error("Estreno debe ser un numero de 4 digitos");
@@ -164,12 +167,15 @@ class Pelicula {
     }
     validateGeneros(generos) {
         if (!generos) {
-            //validamos que introduscan el nombre
             throw new Error("Introduce el genero");
-        }
-        //validamos que los generos sean introducidos en forma de array
+        } 
+            //validamos que los generos sean introducidos en forma de array
         if (!Array.isArray(generos)) {
-            throw new Error("generos debe ser un arreglo");
+        throw new Error("generos debe ser un arreglo");
+        }
+        let aceptedGenres = ['Action', 'Adult', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary' ,'Drama', 'Family', 'Fantasy', 'Film Noir', 'Game-Show', 'History', 'Horror', 'Musical', 'Music', 'Mystery', 'News', 'Reality-TV', 'Romance', 'Sci-Fi', 'Short', 'Sport', 'Talk-Show', 'Thriller', 'War', 'Western'];
+        if(!generos.every(g => aceptedGenres.includes(g))){
+          throw new Error('Generos invalidos');
         }
     }
     validateCalificacion(calificacion) {
@@ -188,6 +194,6 @@ class Pelicula {
     }
 }
 
-const pelicula = new Pelicula({ id: "tt0019130", titulo: "   " });
+const pelicula = new Pelicula({ id: "tt0019130", titulo: "El hombre que rie",director: "Paul Leni",estreno:1928,pais:[Mexico],generos:['Drama','Mystery','Horror']);
 
 // id: tt0019130
