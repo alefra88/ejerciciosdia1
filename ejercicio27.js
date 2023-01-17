@@ -194,6 +194,6 @@ class Pelicula {
     }
 }
 
-const pelicula = new Pelicula({ id: "tt0019130", titulo: "El hombre que rie",director: "Paul Leni",estreno:1928,pais:[Mexico],generos:['Drama','Mystery','Horror']);
+const pelicula = new Pelicula({ id: "tt0019130", titulo: "El hombre que rie",director: "Paul Leni",estreno:1928,pais:['Mexico'],generos:['Drama','Mystery','Horror'],calificacion:7.98});
 
-// id: tt0019130
+console.log(pelicula.getInfo())
