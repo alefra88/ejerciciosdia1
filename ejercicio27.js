@@ -100,6 +100,14 @@ class Pelicula {
         }
         return true;
     }
+    validateLongChain(prop, valor, long) {
+        if (valor.length > long) {
+            throw new Error(
+                `${prop} "${valor}" no tiene el numero de caracteres permitidos`
+            );
+        }
+        return true;
+    }
     validateId(id) {
         //validamos que introduscan el id
         if (!this.validateChain("IMDB id", id)) {
@@ -117,7 +125,7 @@ class Pelicula {
             throw new Error("Debes ingresar el titulo y el nombre");
         }
         //validamos que no supere los 100 caracteres
-        if (titulo.length > 100) {
+        if (!this.validateLongChain("titulo",titulo,100)) {
             throw new Error("El titulo no debe exceder los 100 caracteres");
         }
     }
@@ -127,11 +135,9 @@ class Pelicula {
             throw new Error("El nombre del director es necesario");
         }
         //validamos que no supere los 50 caracteres
-        if (director.length > 50) {
-            throw new Error(
-                "El nombre de director no debe exceder los 50 caracteres"
-            );
-        }
+        if (!this.validateLongChain("director",director,50)) {
+          throw new Error("El titulo no debe exceder los 50 caracteres");
+      }
         //validamos el formato nombre
         const nomRegExp = /^[a-zA-Z\s']+$/;
         if (!nomRegExp.test(director)) {
@@ -148,8 +154,8 @@ class Pelicula {
             throw new Error("Estreno debe ser numero");
         }
         if (!/\S/.test(estreno)) {
-          throw new Error(`${prop} no debe ser solo espacios en blanco`);
-      }
+            throw new Error(`${prop} no debe ser solo espacios en blanco`);
+        }
         //validamos que el numero no supere los 4 digitos
         if (estreno.toString().length !== 4) {
             throw new Error("Estreno debe ser un numero de 4 digitos");
@@ -168,14 +174,43 @@ class Pelicula {
     validateGeneros(generos) {
         if (!generos) {
             throw new Error("Introduce el genero");
-        } 
-            //validamos que los generos sean introducidos en forma de array
-        if (!Array.isArray(generos)) {
-        throw new Error("generos debe ser un arreglo");
         }
-        let aceptedGenres = ['Action', 'Adult', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary' ,'Drama', 'Family', 'Fantasy', 'Film Noir', 'Game-Show', 'History', 'Horror', 'Musical', 'Music', 'Mystery', 'News', 'Reality-TV', 'Romance', 'Sci-Fi', 'Short', 'Sport', 'Talk-Show', 'Thriller', 'War', 'Western'];
-        if(!generos.every(g => aceptedGenres.includes(g))){
-          throw new Error('Generos invalidos');
+        //validamos que los generos sean introducidos en forma de array
+        if (!Array.isArray(generos)) {
+            throw new Error("generos debe ser un arreglo");
+        }
+        let aceptedGenres = [
+            "Action",
+            "Adult",
+            "Adventure",
+            "Animation",
+            "Biography",
+            "Comedy",
+            "Crime",
+            "Documentary",
+            "Drama",
+            "Family",
+            "Fantasy",
+            "Film Noir",
+            "Game-Show",
+            "History",
+            "Horror",
+            "Musical",
+            "Music",
+            "Mystery",
+            "News",
+            "Reality-TV",
+            "Romance",
+            "Sci-Fi",
+            "Short",
+            "Sport",
+            "Talk-Show",
+            "Thriller",
+            "War",
+            "Western",
+        ];
+        if (!generos.every((g) => aceptedGenres.includes(g))) {
+            throw new Error("Generos invalidos");
         }
     }
     validateCalificacion(calificacion) {
@@ -194,6 +229,14 @@ class Pelicula {
     }
 }
 
-const pelicula = new Pelicula({ id: "tt0019130", titulo: "El hombre que rie",director: "Paul Leni",estreno:1928,pais:['Mexico'],generos:['Drama','Mystery','Horror'],calificacion:7.98});
+const pelicula = new Pelicula({
+    id: "tt0019130",
+    titulo: "El hombre que rie",
+    director: "Paul Leni",
+    estreno: 1928,
+    pais: ["Mexico"],
+    generos: ["Drama", "Mystery", "Horror"],
+    calificacion: 7.98,
+});
 
-console.log(pelicula.getInfo())
+console.log(pelicula.getInfo());
