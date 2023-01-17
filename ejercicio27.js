@@ -44,6 +44,51 @@ class Pelicula {
         this.generos = generos;
         this.calificacion = calificacion;
     }
+    //Creamos el metodo estatico que devuelve los generos aceptados: let genres = Pelicula.getGenAcep();
+    static getGenAcep() {
+        return [
+            "Action",
+            "Adult",
+            "Adventure",
+            "Animation",
+            "Biography",
+            "Comedy",
+            "Crime",
+            "Documentary",
+            "Drama",
+            "Family",
+            "Fantasy",
+            "Film Noir",
+            "Game-Show",
+            "History",
+            "Horror",
+            "Musical",
+            "Music",
+            "Mystery",
+            "News",
+            "Reality-TV",
+            "Romance",
+            "Sci-Fi",
+            "Short",
+            "Sport",
+            "Talk-Show",
+            "Thriller",
+            "War",
+            "Western",
+        ];
+    }
+    //creamos el metodo que devuelve la ficha tecnica de la pelìcula en un objeto
+    getInfo() {
+        return {
+            id: this.id,
+            titulo: this.titulo,
+            director: this.director,
+            estreno: this.estreno,
+            pais: this.pais,
+            generos: this.generos,
+            calificacion: this.calificacion,
+        };
+    }
     validateId(id) {
         //validamos que introduscan el id
         if (!id) {
@@ -117,13 +162,17 @@ class Pelicula {
         }
     }
     validateCalificacion(calificacion) {
+        //verificamos que introduscan una calificacion
         if (!calificacion) {
-            throw new Error("El nombre del director es necesario");
+            throw new Error("Debes ingrasar una calificacion");
         }
-        if (director.length > 50) {
-            throw new Error(
-                "El nombre de director no debe exceder los 50 caracteres"
-            );
+        //verificamos que la calificacion introducida sea numero
+        if (typeof calificacion !== "number") {
+            throw new Error("la calificacion debe ser un numero");
+        }
+        //verificamos que la calificacion sea un numero entre 0 y 10
+        if (calificacion < 0 || calificacion > 10) {
+            throw new Error("Calificacion debe ser un numero entre 0 y 10");
         }
     }
 }
