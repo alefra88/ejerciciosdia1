@@ -44,8 +44,8 @@ class Pelicula {
         this.generos = generos;
         this.calificacion = calificacion;
     }
-    //Creamos el metodo estatico que devuelve los generos aceptados: let genres = Pelicula.getGenAcep();
-    static getGenAcep() {
+    //Creamos el metodo estatico que devuelve los generos aceptados
+    static get listGen() {
         return [
             "Action",
             "Adult",
@@ -77,17 +77,22 @@ class Pelicula {
             "Western",
         ];
     }
+    static genAcept() {
+        return console.info(
+            `Los generos aceptados son: ${Pelicula.listGen.join(", ")}`
+        );
+    }
     //creamos el metodo que devuelve la ficha tecnica de la pelìcula en un objeto
     getInfo() {
-        return {
+        return console.info("Ficha Tècnica:\n",{
             id: this.id,
             titulo: this.titulo,
             director: this.director,
             estreno: this.estreno,
             pais: this.pais,
             generos: this.generos,
-            calificacion: this.calificacion,
-        };
+            calificacion: this.calificacion.toFixed(1),
+        });
     }
     validateChain(prop, valor) {
         if (!valor) throw new Error(`${prop} y ${valor} estan vacios`);
@@ -122,7 +127,6 @@ class Pelicula {
             if (typeof chain !== "string") {
                 throw new Error(`El valor ${chain} no es cadena de texto`);
             }
-        return true
         }
         // validamos que tenga datos el valor
         if (valor.length === 0) {
@@ -190,9 +194,11 @@ class Pelicula {
     }
     validateGeneros(generos) {
         if (!this.validateArray("generos", generos)) {
-            throw new Error("Pais no debe estar vacio y/o debe ser un array");
+            throw new Error(
+                "Generos no debe estar vacio y/o debe ser un array"
+            );
         }
-        let aceptedGenres = [
+        let genAcepts = [
             "Action",
             "Adult",
             "Adventure",
@@ -222,8 +228,10 @@ class Pelicula {
             "War",
             "Western",
         ];
-        if (!generos.every((g) => aceptedGenres.includes(g))) {
-            throw new Error("Generos invalidos");
+        if (!generos.every((g) => genAcepts.includes(g))) {
+            throw new Error(
+                `El genero que ingresaste es incorrecto, los generos aceptados son los siguientes:\n ${genAcepts}`
+            );
         }
     }
     validateCalificacion(calificacion) {
@@ -231,9 +239,11 @@ class Pelicula {
         if (!calificacion) {
             throw new Error("Debes ingrasar una calificacion");
         }
-        //verificamos que la calificacion introducida sea numero
-        if (typeof calificacion !== "number") {
-            throw new Error("la calificacion debe ser un numero");
+        if (!isNaN(calificacion)) {
+            parseFloat(this.calificacion);
+            return (this.calificacion = calificacion.toFixed(1));
+        } else {
+            console.log("El valor no es un número");
         }
         //verificamos que la calificacion sea un numero entre 0 y 10
         if (calificacion < 0 || calificacion > 10) {
@@ -242,14 +252,49 @@ class Pelicula {
     }
 }
 
-const pelicula = new Pelicula({
-    id: "tt0019130",
-    titulo: "El hombre que rie",
-    director: "Paul Leni",
-    estreno: 1928,
-    pais: ["Mexico"],
-    generos: ["Drama", "Mystery", "Horror"],
-    calificacion: 7.98,
-});
+//Pelicula.genAcept()
+// const pelicula = new Pelicula({
+//     id: "tt0019130",
+//     titulo: "El hombre que rie",
+//     director: "Paul Leni",
+//     estreno: 1928,
+//     pais: ["Francia"],
+//     generos: ["Drama", "Mystery", "Horror"],
+//     calificacion: 9.222,
+// });
 
-console.log(pelicula.getInfo());
+//console.log(pelicula.getInfo());
+
+// pelicula.getInfo();
+const misPelis = [
+    {
+        id: "tt0019130",
+        titulo: "El hombre que rie",
+        director: "Paul Leni",
+        estreno: 1928,
+        pais: ["Francia"],
+        generos: ["Drama", "Mystery", "Horror"],
+        calificacion: 7.7,
+    },
+    {
+        id: "tt0111161",
+        titulo: "The Shawshank Redemption",
+        director: "Frank Darabont",
+        estreno: 1994,
+        pais: ["USA"],
+        generos: ["Drama"],
+        calificacion: 9.2,
+    },
+    {
+        id: "tt0068646",
+        titulo: "The Godfather",
+        director: "Fracis Ford Coppola",
+        estreno: 1972,
+        pais: ["USA"],
+        generos: ["Drama", "Crime"],
+        calificacion: 9.222,
+    },
+];
+
+
+misPelis.forEach(elem=>new Pelicula(elem).getInfo())
