@@ -108,6 +108,28 @@ class Pelicula {
         }
         return true;
     }
+    //validacion para arreglos
+    validateArray(prop, valor) {
+        if (!valor) {
+            throw new Error(`${prop}El nombre del ${valor} es necesario`);
+        }
+        //validamos que el valor sea introducido en forma de array
+        if (!Array.isArray(valor)) {
+            throw new Error(`${valor} debe ser un arreglo`);
+        }
+        //validamos que el valor introducido sea cadena
+        for (let chain of valor) {
+            if (typeof chain !== "string") {
+                throw new Error(`El valor ${chain} no es cadena de texto`);
+            }
+        return true
+        }
+        // validamos que tenga datos el valor
+        if (valor.length === 0) {
+            throw new Error(`El ${valor} ingresado,no tiene datos`);
+        }
+        return true;
+    }
     validateId(id) {
         //validamos que introduscan el id
         if (!this.validateChain("IMDB id", id)) {
@@ -125,7 +147,7 @@ class Pelicula {
             throw new Error("Debes ingresar el titulo y el nombre");
         }
         //validamos que no supere los 100 caracteres
-        if (!this.validateLongChain("titulo",titulo,100)) {
+        if (!this.validateLongChain("titulo", titulo, 100)) {
             throw new Error("El titulo no debe exceder los 100 caracteres");
         }
     }
@@ -135,9 +157,9 @@ class Pelicula {
             throw new Error("El nombre del director es necesario");
         }
         //validamos que no supere los 50 caracteres
-        if (!this.validateLongChain("director",director,50)) {
-          throw new Error("El titulo no debe exceder los 50 caracteres");
-      }
+        if (!this.validateLongChain("director", director, 50)) {
+            throw new Error("El titulo no debe exceder los 50 caracteres");
+        }
         //validamos el formato nombre
         const nomRegExp = /^[a-zA-Z\s']+$/;
         if (!nomRegExp.test(director)) {
@@ -162,22 +184,13 @@ class Pelicula {
         }
     }
     validatePais(pais) {
-        //validamos que introduscan un pais
-        if (!pais) {
-            throw new Error("El nombre del pais es necesario");
-        }
-        //validamos que el pais sea introducido en forma de arreglo
-        if (!Array.isArray(pais)) {
-            throw new Error("Pais debe ser un arreglo");
+        if (!this.validateArray("pais", pais)) {
+            throw new Error("Pais no debe estar vacio y/o debe ser un array");
         }
     }
     validateGeneros(generos) {
-        if (!generos) {
-            throw new Error("Introduce el genero");
-        }
-        //validamos que los generos sean introducidos en forma de array
-        if (!Array.isArray(generos)) {
-            throw new Error("generos debe ser un arreglo");
+        if (!this.validateArray("generos", generos)) {
+            throw new Error("Pais no debe estar vacio y/o debe ser un array");
         }
         let aceptedGenres = [
             "Action",
